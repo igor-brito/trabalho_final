@@ -1,0 +1,38 @@
+---
+title: "O centro presidencial na América Latina"
+author: "Igor Brito e Paulo Bijos"
+date: "Setembro, 2022"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Resumo {-}
+Texto...
+
+# Introdução
+Texto...
+
+## Objetivos
+Texto...
+
+## Contextualização
+Texto...
+
+# Método
+Texto...
+
+# Análise
+Texto...
+
+# Conclusões
+Texto...
+
+# Referências {-}

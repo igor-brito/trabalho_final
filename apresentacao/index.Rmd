@@ -16,8 +16,13 @@ output:
 
 ## Objeto
 ```{r, include=FALSE}
+# Link no GitHub Pages:
+# https://igor-brito.github.io/trabalho_final/apresentacao/
+
 # Os trechos de código abaixo (fora do chunk) foi incluídos apenas para alinhar
 # o texto à esquerda e configurar a capa
+
+
 ```
 <style type="text/css">
   .reveal p {
