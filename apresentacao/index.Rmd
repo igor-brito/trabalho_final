@@ -1,0 +1,72 @@
+---
+title: "O centro presidencial na América Latina"
+
+author: 
+- Igor Brito
+- Paulo Bijos
+
+date: "Setembro, 2022"
+
+output:
+  revealjs::revealjs_presentation:
+    transition: slide
+
+---
+
+
+## Objeto
+```{r, include=FALSE}
+# Os trechos de código abaixo (fora do chunk) foi incluídos apenas para alinhar
+# o texto à esquerda e configurar a capa
+```
+<style type="text/css">
+  .reveal p {
+    text-align: left;
+  }
+  .reveal ul {
+    display: block;
+  }
+  .reveal ol {
+    display: block;
+  }
+</style>
+
+```{css, echo=FALSE}
+h1.title {
+  font-size: 90px;
+  line-height: 90px;
+}
+
+h2.author {
+  font-size: 50px;
+  line-height: 50px;
+  text-align: left;
+}
+
+h3.date {
+  font-size: 30px;
+  text-align: left;
+}
+``` 
+
+- O centro presidencial
+
+## Objetivos
+- Explicar as variações do tamanho do centro presidencial
+
+## Contextualização
+- Importência do centro presidencial
+
+## Métodos
+- Dados de replicação
+
+## Análise 1 (Gráficos/tabelas)
+- Gráficos/tabelas
+
+## Análise 2 (Gráficos/tabelas)
+- Gráficos/tabelas
+
+## Conclusões
+- Conclusão...
+
+
