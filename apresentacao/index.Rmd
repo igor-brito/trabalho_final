@@ -1,77 +1,149 @@
 ---
-title: "O centro presidencial na América Latina"
-
-author: 
-- Igor Brito
-- Paulo Bijos
-
+title: "O centro presidencial no Brasil"
+author: "Igor Brito, mat. 21/0005131"
 date: "Setembro, 2022"
-
 output:
   revealjs::revealjs_presentation:
     transition: slide
-
 ---
 
-
-## Objeto
 ```{r, include=FALSE}
+# Esse chunk não irá aparecer no slide por não ser um resultado da análise
+
 # Link no GitHub Pages:
 # https://igor-brito.github.io/trabalho_final/apresentacao/
 
-# Os trechos de código abaixo (fora do chunk) foi incluídos apenas para alinhar
-# o texto à esquerda e configurar a capa
+# Procedimentos iniciais para configurar o R
+knitr::opts_chunk$set(echo = FALSE, digits = 1)
 
+# Limpa memória
+rm(list = ls())
+gc()
+
+# Carrega pacotes usados no código
+library(tidyverse)
+library(infer)
+library(knitr)
+library(moderndive)
 
 ```
-<style type="text/css">
-  .reveal p {
+
+
+## Objetivo
+- O objetivo deste trabalho é analisar o efeito da quantidade de partidos no gabinete no tamanho do centro presidencial no Brasil
+
+- O centro presidencial pode ser entendido como o núcleo que apoia diretamente o trabalho do chefe de governo e busca reforçar sua autoridade e liderança, bem como sua autonomia e recursos políticos, articulando dispositivos de centralização de poderes dentro do Executivo (LANZARO, 2018).
+ 
+```{css, echo=FALSE}
+/*Alinhando o texto dos slides à esquerda*/
+.reveal p {
     text-align: left;
   }
-  .reveal ul {
-    display: block;
-  }
-  .reveal ol {
-    display: block;
-  }
-</style>
-
-```{css, echo=FALSE}
-h1.title {
-  font-size: 90px;
-  line-height: 90px;
+.reveal ul {
+  display: block;
+}
+.reveal ol {
+  display: block;
 }
 
-h2.author {
-  font-size: 50px;
-  line-height: 50px;
-  text-align: left;
-}
-
-h3.date {
-  font-size: 30px;
-  text-align: left;
-}
 ``` 
 
-- O centro presidencial
+## Contextualização
+- O presidente é um ator fundamental na dinâmica política, social e econômica dos países presidencialistas e a reorganização das estruturas que o apoiam em sua missão institucional tem sido uma preocupação recorrente entre formuladores de políticas e organizações multilaterais nas últimas décadas.
 
-## Objetivos
-- Explicar as variações do tamanho do centro presidencial
+- Nesse contexto, o tamanho do centro presidencial é um aspecto relevante por representar a extensão do núcleo que provê suporte imediato ao presidente na condução do governo, principalmente quando ele lida com um ambiente hostil que ameaça sua autonomia e controle.
 
 ## Contextualização
-- Importência do centro presidencial
+- Em gabinetes de coalizão, quando o presidente cede espaço no gabinete a outros partidos para assegurar uma cooperação estável com o Legislativo, há o risco de os ministros perseguirem agendas próprias e de seus partidos, ameaçando a autonomia e o controle presidencial. Para lidar com esse risco, o presidente tenderia a expandir o centro presidencial.
+
+
+- *H1: O centro presidencial expandirá quanto maior for a quantidade de partidos no gabinete.*
 
 ## Métodos
-- Dados de replicação
+- Fonte de dados:
+  - Centro presidencial (1985-2002): Inácio e Llanos (2015)
+  - Centro presidencial (2003-2016): normas de organização do Poder Executivo
+  - Partidos no gabinete (1985-2016): Amorim Neto (2019)
 
-## Análise 1 (Gráficos/tabelas)
-- Gráficos/tabelas
 
-## Análise 2 (Gráficos/tabelas)
-- Gráficos/tabelas
+- Modelo de regressão linear, sendo H1 representada por $\beta_1 \neq 0$:
 
-## Conclusões
-- Conclusão...
+$tam\_cp = \beta_0 + \beta_1*qtd\_part$
+
+## Amostra dos dados brutos
+```{r, echo=F}
+#Carrega dados
+dados_trab_final <- read.csv2("dados/dados_trab_final.csv")
+
+#Amostra aleatória dos dados brutos, foi definida uma semente
+#de modo a promover a reprodutibilidade.
+set.seed(15654)
+amostra <- dados_trab_final %>%
+  sample_n(size = 5) %>% 
+  arrange(ano)
+
+#Mostra os dados em tabela
+kable(amostra)
+
+```
+
+## Estatísticas descrtitivas
+
+```{r, echo=F}
+#Gera estatísticas descritivas
+descritiva <- dados_trab_final %>%
+  select(tam_cp, qtd_part) %>%
+  summary()
+descritiva
+
+```
+
+## Gráfico de dispersão e modelo linear
+
+```{r, echo=F, fig.width = 10}
+#Gráfico de dispersão e modelo linear
+dados_trab_final %>%
+  ggplot(aes(x = qtd_part, y = tam_cp)) +
+  geom_point() +
+  labs(x = "Quantidade de partidos no gabinete", 
+       y = "Tamanho do centro presidencial",
+       title = "Gráfico de dispersão e modelo linear") +
+  geom_smooth(method = "lm", se = F) +
+  scale_x_continuous(breaks = seq(0, 12, by = 2), limits = c(0, NA)) +
+  scale_y_continuous(breaks = seq(0, 25, by = 5), limits = c(0, NA), minor_breaks = NULL)
+
+```
+
+## Tabela de regressão
+
+```{r, echo=F}
+#Regressão linear
+modelo_regressao <- lm(tam_cp ~ qtd_part, data = dados_trab_final)
+
+#Tabela de regressão linear
+kable(get_regression_table(modelo_regressao, digits = 3))
+
+```
+
+- O coeficiente estimado de $qtd\_part$ é 1.9 aproximadamente. Ou seja, para cada acréscimo de um partido no gabinete, existe um acréscimo associado, em média, de 1.9 órgãos no centro presidencial.
+
+- O intervalo de confiança de 95% para esse parâmetro é [1.335, 2.367].
+
+- O p-valor é baixíssimo (< 0.000), portanto, esse resultado é significante estatisticamente aos níveis convencionais de confiança (10%, 5%, 1% e 0.1%).
+
+
+## Conclusões e limitações
+- Os resultados evidenciaram uma associação positiva e estatisticamente significante entre essas variáveis.
+
+- Contudo, esses resultados devem ser encarados como provisórios, considerando as limitações de quantidade de observações utilizadas na análise e de emprego de uma técnica de análise modesta (regressão linear simples) que não trata algumas características dos dados utilizados (como a dependência das observações).
+
+
+## Referências
+
+AMORIM NETO, O. Cabinets and coalitional presidentialism. In: AMES, Barry (ed.). Routledge Handbook of Brazilian Politics. New York: Routledge, 2019. p. 293-312.
+
+INÁCIO, M.; LLANOS, M. The institutional presidency from a comparative perspective: Argentina and Brazil since the 1980s. Brazilian Political Science Review, São Paulo, v. 9, n. 1, p. 39-64, 2015. 
+
+LANZARO, J. Introducción. In: LANZARO, Jorge. (Ed.). Centro Presidencial: presidencias y centros de gobierno en América Latina, Estados Unidos y Europa. Madrid: Tecnos, 2018. p. 13–38.
 
 
