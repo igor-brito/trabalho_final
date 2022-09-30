@@ -2,6 +2,7 @@
 title: "O centro presidencial no Brasil"
 author: "Igor Brito"
 date: "Setembro, 2022"
+lang: pt
 output:
   html_document:
     toc: true
@@ -12,12 +13,7 @@ bibliography: referencias.bib
 ---
 
 ```{r, include=FALSE}
-# Esse chunk não irá aparecer no slide por não ser um resultado da análise
-
-# Não utilizei as referências automáticas porque tive problema com o arquivo
-# "abntex2.cls", ou seja, não consegui colocar as referências no padrão ABNT.
-# Deixar as referências com o padrão "Chicago" deixaria algumas citações com
-# o "and" ao invés de "e".
+# Esse chunk não irá aparecer por não ser um resultado da análise
 
 # Link no GitHub Pages:
 # https://igor-brito.github.io/trabalho_final/artigo
@@ -42,22 +38,22 @@ library(moderndive)
 Este trabalho objetiva analisar o efeito da quantidade de partidos no gabinete no tamanho do centro presidencial no Brasil. A expansão do centro presidencial é tida como uma estratégia do presidente para lidar com o risco de agência advindo da distribuição de ministérios aos partidos da coalizão. Os dados cobrem o período de 1985 a 2016 e a estratégia de análise empregada foi a regressão linear simples. Os resultados evidenciaram uma associação positiva e estatisticamente significante entre essas variáveis. Contudo, esses resultados devem ser encarados como provisórios, considerando as limitações de quantidade de observações utilizadas na análise e de emprego de uma técnica de análise modesta (regressão linear simples) que não trata algumas características dos dados utilizados (como a dependência das observações).
 
 # Introdução
-O objetivo deste trabalho é analisar o efeito da quantidade de partidos no gabinete no tamanho do centro presidencial no Brasil entre 1985 e 2016. O centro presidencial pode ser entendido como o núcleo que apoia diretamente o trabalho do chefe de governo e busca reforçar sua autoridade e liderança, bem como sua autonomia e recursos políticos, articulando dispositivos de centralização de poderes dentro do Executivo (LANZARO, 2018).
+O objetivo deste trabalho é analisar o efeito da quantidade de partidos no gabinete no tamanho do centro presidencial no Brasil entre 1985 e 2016. O centro presidencial pode ser entendido como o núcleo que apoia diretamente o trabalho do chefe de governo e busca reforçar sua autoridade e liderança, bem como sua autonomia e recursos políticos, articulando dispositivos de centralização de poderes dentro do Executivo [@Lanzaro2018].
 
 O principal pressuposto assumido nesta pesquisa é que o presidente enfrenta um trade-off relacionado à expansão do centro presidencial. Por um lado, uma maior quantidade de órgãos de apoio direto promove um reforço da liderança do presidente, tanto em termos de um maior controle da ação dos ministérios quanto por meio da centralização da produção de políticas na Presidência. Por outro, o crescimento do centro presidencial aumenta o custo de gestão interna deste e limita a autonomia dos ministros. Especificamente, em casos de governos de coalizão, essa redução da autonomia dos ministros dos partidos da coalizão representa uma menor recompensa em fazer parte do governo, o que pode provocar a saída desses partidos da coalizão. Diante disso, o presidente tende a usar a estratégia de expansão do centro presidencial de forma cautelosa e em momentos de maior ameaça a sua liderança.
 
 A principal explicação para a variação no tamanho do centro presidencial na América Latina está baseada na relação entre o presidente e seus ministros em governos de coalizão, situação em que, potencialmente, há grande divergência de preferência entre esses atores políticos. Para compreender essa explicação é salutar compreender a lógica de formação de governo na região, bem como os mecanismos empregados pelo presidente para lidar com as adversidades produzidas por essa lógica.
 
-Desde o artigo seminal de Juan Linz (1990) alertando do perigo do presidencialismo, passando pela difícil combinação do presidencialismo com o multipartidarismo (MAINWARING; SHUGART, 1997) até as diversas ferramentas utilizadas pelos presidentes visando criar uma cooperação relativamente estável com o Poder Legislativo (CHAISTY; CHEESEMAN; POWER, 2014), uma série de trabalhos vem explorando as diversas facetas do que se convencionou chamar de presidencialismo de coalizão.
+Desde o artigo seminal de Juan @Linz1990 alertando do perigo do presidencialismo, passando pela difícil combinação do presidencialismo com o multipartidarismo [@Mainwaring1997] até as diversas ferramentas utilizadas pelos presidentes visando criar uma cooperação relativamente estável com o Poder Legislativo [@Chaisty2014], uma série de trabalhos vem explorando as diversas facetas do que se convencionou chamar de presidencialismo de coalizão.
 
-Uma das ferramentas essenciais para que o presidente possa criar uma relação de cooperação estável com o Congresso é a distribuição de cargos dentro do Poder Executivo para membros de partidos da coalizão (AMORIM NETO, 2006; MARTÍNEZ-GALLARDO, 2014). Se por um lado essa estratégia visa garantir uma base parlamentar de apoio ao governo, por outro, ela diminui o controle presidencial sobre os órgãos executivos chefiados pelos parceiros da coalizão. Como bem coloca Batista (2013, p. 450) “[c]omo representante do partido, o ministro tem uma ideologia, preferências políticas, projetos eleitorais e seu partido tem uma agenda política própria e isto pode afetar diretamente as decisões tomadas pelo governo”.
+Uma das ferramentas essenciais para que o presidente possa criar uma relação de cooperação estável com o Congresso é a distribuição de cargos dentro do Poder Executivo para membros de partidos da coalizão [@AmorimNeto2006; @Martinez-Gallardo2014]. Se por um lado essa estratégia visa garantir uma base parlamentar de apoio ao governo, por outro, ela diminui o controle presidencial sobre os órgãos executivos chefiados pelos parceiros da coalizão. Como bem coloca @Batista2013[p.450] “[c]omo representante do partido, o ministro tem uma ideologia, preferências políticas, projetos eleitorais e seu partido tem uma agenda política própria e isto pode afetar diretamente as decisões tomadas pelo governo”.
 
 Portanto, há de se esperar que quanto maior a quantidade de partidos no gabinete, maior será o risco de agência e, assim, maior será o incentivo para que o presidente expanda o centro presidencial. Logo, este trabalho irá testar a seguinte hipótese:
 
-*H1: O centro presidencial expandirá quanto maior for a quantidade de partidos no gabinete.*^[O teste dessa hipótese tem finalidade didática para apresentação do trabalho final da disciplina de Métodos Quantitativos Aplicados à Ciência Política - 2022/1. Inácio e Llanos (2015, 2016) já testaram essa hipótese de forma comparada e com variáveis de controle. Aqui eu utilizo parte dos dados dessas autoras, mas também complemento com dados do Brasil dos últimos anos.]
+*H1: O centro presidencial expandirá quanto maior for a quantidade de partidos no gabinete.*^[O teste dessa hipótese tem finalidade didática para apresentação do trabalho final da disciplina de Métodos Quantitativos Aplicados à Ciência Política - 2022/1. @Inacio2015 e @Inacio2016 já testaram essa hipótese de forma comparada e com variáveis de controle. Aqui eu utilizo parte dos dados dessas autoras, mas também complemento com dados do Brasil dos últimos anos.]
 
 # Método
-Os dados são referentes ao Brasil, caso típico de presidencialismo de coalizão, entre o ano de 1985 e 2016. Os dados sobre o tamanho do centro presidencial foram coletados nos dados de replicação de Inácio e Llanos (2015) para o período de 1985 a 2002. Para o período de 2003 a 2016 foi realizada a coleta dos dados diretamente de fontes primárias (normas de organização do Poder Executivo do Brasil). A quantidade de partidos no gabinete foi obtida no texto de Amorim Neto (2019). Os dados possuem granularidade anual, sendo 32 observações ao total.
+Os dados são referentes ao Brasil, caso típico de presidencialismo de coalizão, entre o ano de 1985 e 2016. Os dados sobre o tamanho do centro presidencial foram coletados nos dados de replicação de @Inacio2015 para o período de 1985 a 2002. Para o período de 2003 a 2016 foi realizada a coleta dos dados diretamente de fontes primárias (normas de organização do Poder Executivo do Brasil). A quantidade de partidos no gabinete foi obtida no texto de @AmorimNeto2019. Os dados possuem granularidade anual, sendo 32 observações ao total.
 
 O modelo escolhido para promover o teste da hipótese de pesquisa (H1) foi a regressão linear, pois tanto a variável dependente (tamanho do centro presidencial) quanto a variável independente (quantidade de partidos no gabinete) são contínuas. Assim, o modelo pode ser escrito da seguinte forma:
 
@@ -67,7 +63,7 @@ Sendo H1 representada por $\beta_1 \neq 0$.
 
 # Análise
 ## Análise exploratória dos dados
-Inicialmente, é importante fazer uma análise exploratória dos dados para facilitar a compreensão destes antes de se proceder com o teste de hipótese. Assim, seguindo as diretrizes de análise exploratória sugeridas por Ismay e Kim (2019), foi feita a visualização dos dados brutos, o cálculo de estatísticas descritivas e a visualização gráfica dos dados.
+Inicialmente, é importante fazer uma análise exploratória dos dados para facilitar a compreensão destes antes de se proceder com o teste de hipótese. Assim, seguindo as diretrizes de análise exploratória sugeridas por @Ismay2019, foi feita a visualização dos dados brutos, o cálculo de estatísticas descritivas e a visualização gráfica dos dados.
 
 Como a base de dados contém 32 observações, procedeu-se com a visualização de uma amostra aleatória de 5 observações dos dados brutos. Essa amostra pode ser vista na tabela abaixo.
 
@@ -172,7 +168,7 @@ Esse intervalo de confiança também se aproxima bastante do resultado da tabela
 
 
 ## Análise dos resíduos
-Segundo Ismay e Kim (2019), as seguintes condições precisam ser satisfeitas para que o resultados da regressão sejam válidos:
+Segundo @Ismay2019, as seguintes condições precisam ser satisfeitas para que o resultados da regressão sejam válidos:
 
 1. Relação linear entre as variáveis;
 2. Independência dos resíduos;
@@ -218,24 +214,3 @@ Contudo, os resultados aqui apresentados devem ser interpretados com bastante ca
 Uma agenda de pesquisa futura pode expandir a quantidade de casos analisados, aumentando a quantidade de observações, e aplicar outros modelos estatísticos mais avançados para lidar com as limitações deste trabalho.
 
 # Referências {-}
-AMORIM NETO, O. The presidential calculus: Executive policy making and cabinet formation in the Americas. Comparative Political Studies, v. 39, n. 4, p. 415–440, 2006. 
-
-AMORIM NETO, O. Cabinets and coalitional presidentialism. In: AMES, Barry (ed.). Routledge Handbook of Brazilian Politics. New York: Routledge, 2019. p. 293-312.
-
-BATISTA, M. O Poder no Executivo: uma análise do papel da Presidência e dos Ministérios no presidencialismo de coalizão brasileiro (1995-2010). Opinião Pública, v. 19, n. 2, p. 449–473, 2013. 
-
-CHAISTY, P.; CHEESEMAN, N.; POWER, T. Rethinking the “presidentialism debate”: Conceptualizing coalitional politics in cross-regional perspective. Democratization, v. 21, n. 1, p. 72–94, 2014. 
-
-INÁCIO, M.; LLANOS, M. The institutional presidency from a comparative perspective: Argentina and Brazil since the 1980s. Brazilian Political Science Review, São Paulo, v. 9, n. 1, p. 39-64, 2015. 
-
-INÁCIO, M.; LLANOS, M. The Institutional Presidency in Latin America: A Comparative Analysis. Presidential Studies Quarterly, v. 46, n. 3, p. 531–549, 2016. 
-
-ISMAY, C.; KIM, A. Y. Statistical inference via data science: A ModernDive into R and the tidyverse. Chapman and Hall/CRC, 2019.
-
-LANZARO, J. Introducción. In: LANZARO, Jorge. (Ed.). Centro Presidencial: presidencias y centros de gobierno en América Latina, Estados Unidos y Europa. Madrid: Tecnos, 2018. p. 13–38.
-
-LINZ, J. The Perils of Presidentialism. Journal of Democracy, v. 1, n. 1, p. 51–69, 1990. 
-
-MAINWARING, S.; SHUGART, M. S. Juan Linz, Presidentialism, and Democracy: A Critical Appraisal. Comparative Politics, v. 29, n. 4, p. 449–471, 1997. 
-
-MARTÍNEZ-GALLARDO, C. Designing Cabinets: Presidential Politics and Ministerial Instability. Journal of Politics in Latin America, v. 6, n. 2, p. 3–38, 2014. 
