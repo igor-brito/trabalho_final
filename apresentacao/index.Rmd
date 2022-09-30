@@ -2,9 +2,11 @@
 title: "O centro presidencial no Brasil"
 author: "Igor Brito, mat. 21/0005131"
 date: "Setembro, 2022"
+lang: pt
 output:
   revealjs::revealjs_presentation:
     transition: slide
+bibliography: referencias.bib
 ---
 
 ```{r, include=FALSE}
@@ -32,7 +34,7 @@ library(moderndive)
 ## Objetivo
 - O objetivo deste trabalho é analisar o efeito da quantidade de partidos no gabinete no tamanho do centro presidencial no Brasil
 
-- O centro presidencial pode ser entendido como o núcleo que apoia diretamente o trabalho do chefe de governo e busca reforçar sua autoridade e liderança, bem como sua autonomia e recursos políticos, articulando dispositivos de centralização de poderes dentro do Executivo (LANZARO, 2018).
+- O centro presidencial pode ser entendido como o núcleo que apoia diretamente o trabalho do chefe de governo e busca reforçar sua autoridade e liderança, bem como sua autonomia e recursos políticos, articulando dispositivos de centralização de poderes dentro do Executivo [@Lanzaro2018].
  
 ```{css, echo=FALSE}
 /*Alinhando o texto dos slides à esquerda*/
@@ -61,9 +63,9 @@ library(moderndive)
 
 ## Métodos
 - Fonte de dados:
-  - Centro presidencial (1985-2002): Inácio e Llanos (2015)
+  - Centro presidencial (1985-2002): @Inacio2015
   - Centro presidencial (2003-2016): normas de organização do Poder Executivo
-  - Partidos no gabinete (1985-2016): Amorim Neto (2019)
+  - Partidos no gabinete (1985-2016): @AmorimNeto2019
 
 
 - Modelo de regressão linear, sendo H1 representada por $\beta_1 \neq 0$:
@@ -139,11 +141,3 @@ kable(get_regression_table(modelo_regressao, digits = 3))
 
 
 ## Referências
-
-AMORIM NETO, O. Cabinets and coalitional presidentialism. In: AMES, Barry (ed.). Routledge Handbook of Brazilian Politics. New York: Routledge, 2019. p. 293-312.
-
-INÁCIO, M.; LLANOS, M. The institutional presidency from a comparative perspective: Argentina and Brazil since the 1980s. Brazilian Political Science Review, São Paulo, v. 9, n. 1, p. 39-64, 2015. 
-
-LANZARO, J. Introducción. In: LANZARO, Jorge. (Ed.). Centro Presidencial: presidencias y centros de gobierno en América Latina, Estados Unidos y Europa. Madrid: Tecnos, 2018. p. 13–38.
-
-
